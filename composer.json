@@ -1,0 +1,54 @@
+{
+    "name": "ore/gallium-ui",
+    "description": "Robust Laravel 8 Starter Kit with speed and reactiveness in mind. I can't wait to show you what we have cooking up. ",
+    "keywords": [
+        "ore",
+        "gallium-ui"
+    ],
+    "homepage": "https://github.com/ore/gallium-ui",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Eric Craigen",
+            "email": "eric.craigen.cd@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.4|^8.0",
+        "illuminate/support": "^8.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^6.0",
+        "phpunit/phpunit": "^9.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ore\\GalliumUi\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Ore\\GalliumUi\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Ore\\GalliumUi\\GalliumUiServiceProvider"
+            ],
+            "aliases": {
+                "GalliumUi": "Ore\\GalliumUi\\GalliumUiFacade"
+            }
+        }
+    }
+}
