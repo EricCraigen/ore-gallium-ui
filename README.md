@@ -4,7 +4,7 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/ore/gallium-ui.svg?style=flat-square)](https://packagist.org/packages/ore/gallium-ui)
 ![GitHub Actions](https://github.com/ore/gallium-ui/actions/workflows/main.yml/badge.svg)
 
-This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what PSRs you support to avoid any confusion with users and contributors.
+A Robust and feature rich TALL stack starter kit with a theme and sister packages to exapand your Laravel application to the wide blue skies.
 
 ## Installation
 
