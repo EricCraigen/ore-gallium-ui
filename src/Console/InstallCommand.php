@@ -3,7 +3,7 @@
 namespace Ore\GalliumUi\Console;
 
 use Illuminate\Console\Command;
-use Ore\GalliumUi\Presets\AuthPreset;
+use Ore\GalliumUi\Presets\PresetInstaller;
 
 class InstallCommand extends Command
 {
@@ -13,8 +13,7 @@ class InstallCommand extends Command
      * @var string
      */
     protected $signature = 'gallium:install
-                {--auth : Run the Authentication scaffolding installer.}
-                {name :  Theme to be installed on top of preset.}';
+                {--auth : Install Gallium-Ui with the Livewire Authentication Scaffolding.}';
 
     /**
      * The console command description.
@@ -30,27 +29,20 @@ class InstallCommand extends Command
      */
     public function handle()
     {
-        // dd($this->argument('theme_name'));
-        if ($this->option('auth')) {
-            $this->info('Please follow the prompts in order to finalize installion.');
-            AuthPreset::install([
-                'scaffolding' => $this->options(0)['auth'] ? 'auth' : 'base',
-                'name' => $this->argument('name'),
-            ]);
-            // $this->info('Calling Preset\Themes\Auth\PuraVidaInstaller::install()');
+        $installation_options = [
+            'preset' => $this->options()['auth'],
+            'theme' => 'gallium'
+        ];
+        if (!$installation_options['preset']) {
+            $installation_options['preset'] = $this->choice('Which scaffolding preset would you like to install?', [1 => 'base', 2 => 'auth']);
         } else {
-            $this->info('Calling Preset\Themes\Base\PuraVidaInstaller::install()...');
-            $this->info('Calling Preset\Themes\Base\PuraVidaInstaller::install()...');
-            $this->info('Calling Preset\Themes\Base\PuraVidaInstaller::install()...');
+            $installation_options['auth'] = 'auth';
         }
-
-        // $this->buildDockerCompose($services);
-        // $this->replaceEnvVariables($services);
-
-        // if ($this->option('devcontainer')) {
-        //     $this->installDevContainer();
-        // }
-
-        $this->info($this->options(0)['auth'] ? 'Authenticantion scaffolding installed successfully' : 'Base scaffolding installed successfully');
+        $installation_options['theme'] = $this->choice('Which theme would you like to install on top of the preset?', [1 => 'Gallium', 2 => 'Cobalt']);
+        $installation_options['theme'] = strtolower($installation_options['theme']);
+        PresetInstaller::install();
+        $this->info($installation_options['preset'] ? 'Authenticantion scaffolding installed successfully!' : 'Base scaffolding installed successfully!');
+        $this->info($installation_options['theme'].' theme installed successfully!');
+        // dd(json_encode($installation_options));
     }
 }

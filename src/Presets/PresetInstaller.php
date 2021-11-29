@@ -4,12 +4,11 @@ namespace Ore\GalliumUi\Presets;
 
 use Illuminate\Support\Arr;
 use Laravel\Ui\Presets\Preset;
-use Ore\GalliumUi\Presets\HasTheme;
 use Illuminate\Filesystem\Filesystem;
 
-class AuthPreset extends Preset
+class PresetInstaller extends Preset
 {
-    use HasTheme;
+    // use HasTheme;
 
     const NPM_PACKAGES_TO_ADD = [
         '@tailwindcss/forms' => '^0.3',
@@ -27,41 +26,32 @@ class AuthPreset extends Preset
         'axios',
     ];
 
-    public static function install(array $installation_options)
+    public static function install()
     {
 
-        // config(['gallium-ui.preset' => $installation_options['preset']]);
-
-        // $preset_config = [
-        //     'scaffolding' => $installation_options['preset'] ? 'auth' : 'base',
-        // ];
-        // $theme_config = static::bootHasTheme($installation_options['theme']);
-
-        // dd($theme_config);
-        // array_push($preset_config, $theme_config);
+        // dd(static::theme_config($installation_options['theme']));
+        // ThemeConfigParser - get config settings for theme
 
         static::updatePackages();
 
         $filesystem = new Filesystem();
         $filesystem->deleteDirectory(resource_path('sass'));
-        $filesystem->copyDirectory(__DIR__ . '/../stubs/default', base_path());
+        // Move theme stubs to project
+        $filesystem->copyDirectory(__DIR__ . '../../Themes/Gallium/default', base_path());
+        // Move auth stubs if auth is selected
+        $filesystem->copyDirectory(__DIR__ . '../../Themes/Gallium/auth', base_path());
 
+        // Update home route to point at project root in RouteServiceProvider
         static::updateFile(base_path('app/Providers/RouteServiceProvider.php'), function ($file) {
             return str_replace("public const HOME = '/home';", "public const HOME = '/';", $file);
         });
 
+        // Update home route name to welcome in RedirectIfAuthenticated middleware
         static::updateFile(base_path('app/Http/Middleware/RedirectIfAuthenticated.php'), function ($file) {
-            return str_replace("RouteServiceProvider::HOME", "route('home')", $file);
+            return str_replace("RouteServiceProvider::HOME", "route('welcome')", $file);
         });
 
-        return;
-    }
 
-    public static function installAuth()
-    {
-        $filesystem = new Filesystem();
-
-        $filesystem->copyDirectory(__DIR__ . '/../stubs/auth', base_path());
     }
 
     protected static function updatePackageArray(array $packages)
@@ -82,6 +72,8 @@ class AuthPreset extends Preset
         file_put_contents($path, $newFileContents);
     }
 
-
-
+    // public static function theme_config(string $name) : array {
+    //     $name = ['Eric', 'Jamie'];
+    //     return $name;
+    // }
 }

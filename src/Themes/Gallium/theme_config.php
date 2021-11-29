@@ -3,7 +3,7 @@
 
 return [
     'info' => [
-        'name' => 'gallium-ui',
+        'name' => 'gallium',
         'version' => 'dev',
     ],
     'themes_path_prefix' => '/vendor/ore/gallium-ui/src/Themes/',

@@ -8,7 +8,7 @@ class BootThemeCommand extends Command
 {
 /**
      * The name and signature of the console command.
-     *
+     * 
      * @var string
      */
     protected $signature = 'gallium-ui:booting-theme {process}';

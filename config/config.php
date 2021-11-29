@@ -4,6 +4,14 @@
  * You can place your custom package configuration in here.
  */
 return [
-    'themes_path_prefix' => '/vendor/ore/gallium-ui/src/Themes/',
-    'theme_config' => 'theme_config',
+    'preset' => [
+        'scaffolding' => 'auth',
+        'theme' => 'Gallium',
+    ],
+
+    'paths' => [
+      'themes_prefix' => '/vendor/ore/gallium-ui/src/Themes/',
+    ],
+
+
 ];
