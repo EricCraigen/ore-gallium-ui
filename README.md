@@ -6,6 +6,8 @@
 
 A Robust and feature rich TALL stack starter kit with a theme and sister packages to exapand your Laravel application to the wide blue skies.
 
+*** Product still in early development ***
+
 ## Installation
 
 You can install the package via composer:
